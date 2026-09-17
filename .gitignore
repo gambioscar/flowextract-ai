@@ -1,0 +1,10 @@
+/.env
+/vendor/
+/storage/uploads/*
+/storage/exports/*
+/storage/logs/*
+!/storage/uploads/.gitkeep
+!/storage/exports/.gitkeep
+!/storage/logs/.gitkeep
+.DS_Store
+Thumbs.db
