@@ -1,0 +1,23 @@
+{
+  "name": "oscargambi/flowextract-ai-demo",
+  "description": "Portfolio demo: AI-assisted extraction, human validation and export of business documents.",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "ext-curl": "*",
+    "ext-fileinfo": "*",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "FlowExtract\\": "app/"
+    }
+  },
+  "scripts": {
+    "serve": "php -S 127.0.0.1:8080 -t public",
+    "test": "php tests/run.php"
+  }
+}

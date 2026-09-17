@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      APP_URL: http://localhost:8080
+      APP_KEY: local-demo-key-change-in-production
+      APP_DEMO_MODE: "true"
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: flowextract
+      DB_USERNAME: flowextract
+      DB_PASSWORD: flowextract-local
+      UPLOAD_MAX_BYTES: 5242880
+      DEMO_RETENTION_HOURS: 24
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: flowextract
+      MYSQL_USER: flowextract
+      MYSQL_PASSWORD: flowextract-local
+      MYSQL_ROOT_PASSWORD: root-local-only
+    volumes:
+      - flowextract-db:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot-local-only"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  flowextract-db:
